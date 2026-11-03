@@ -296,7 +296,7 @@
 
 <div class="sticky-bar">
   <div><strong style="color:var(--accent-gold)">Match Bar Active</strong></div>
-  <button class="submit-btn" onclick="generateSummary()">Complete & Copy</button>
+  <button class="submit-btn" onclick="generateSummary()">Complete & Submit</button>
 </div>
 
 <div class="modal" id="modal">
@@ -310,6 +310,9 @@
 </div>
 
 <script>
+  // Paste your Google Apps Script Web App URL between the quotes below
+  const GOOGLE_WEB_APP_URL = "YOUR_GOOGLE_WEB_APP_URL_HERE";
+
   function selectSingle(btn, group) {
     const parent = btn.parentElement;
     parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
@@ -327,27 +330,49 @@
 
   function generateSummary() {
     const name = document.getElementById('contact-name').value || 'Anonymous';
-    const smoke = getSelected('smoke');
+    const smokeVal = getSelected('smoke');
     const smokeCustom = document.getElementById('custom-smoke').value;
-    const intent = getSelected('intent');
+    const smoke = smokeVal + (smokeCustom ? ' (' + smokeCustom + ')' : '');
+
+    const intentVal = getSelected('intent');
     const intentCustom = document.getElementById('custom-intent').value;
+    const intent = intentVal + (intentCustom ? ' (' + intentCustom + ')' : '');
+
     const noUser = document.getElementById('user-energy-check').checked ? 'Yes (Zero User Energy)' : 'No';
-    const kids = getSelected('kids');
+
+    const kidsVal = getSelected('kids');
     const kidsCustom = document.getElementById('custom-kids').value;
-    const trips = getSelected('trips');
+    const kids = kidsVal + (kidsCustom ? ' (' + kidsCustom + ')' : '');
+
+    const tripsVal = getSelected('trips');
     const tripsCustom = document.getElementById('custom-trips').value;
-    const cook = getSelected('cook');
+    const trips = tripsVal + (tripsCustom ? ' (' + tripsCustom + ')' : '');
+
+    const cookVal = getSelected('cook');
     const cookCustom = document.getElementById('custom-cook').value;
+    const cook = cookVal + (cookCustom ? ' (' + cookCustom + ')' : '');
+
     const bonus = document.getElementById('bonus-questions').value;
+
+    // Send payload to Google Sheets via Apps Script Web App if URL is provided
+    if (GOOGLE_WEB_APP_URL && GOOGLE_WEB_APP_URL !== "YOUR_GOOGLE_WEB_APP_URL_HERE") {
+      const payload = { name, smoke, intent, noUser, kids, trips, cook, bonus };
+      fetch(GOOGLE_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.log('Google Sheets submit notice:', err));
+    }
 
     let text = `=== FUTURE WOMAN APPLICATION ===\n`;
     text += `Applicant: ${name}\n\n`;
-    text += `1. Lifestyle: ${smoke}${smokeCustom ? ' (' + smokeCustom + ')' : ''}\n`;
-    text += `2. Intentions: ${intent}${intentCustom ? ' (' + intentCustom + ')' : ''}\n`;
+    text += `1. Lifestyle: ${smoke}\n`;
+    text += `2. Intentions: ${intent}\n`;
     text += `   - Mutual Respect / Zero User Energy: ${noUser}\n`;
-    text += `3. Family / Kids: ${kids}${kidsCustom ? ' (' + kidsCustom + ')' : ''}\n`;
-    text += `4. Road Trips: ${trips}${tripsCustom ? ' (' + tripsCustom + ')' : ''}\n`;
-    text += `5. Kitchen Style: ${cook}${cookCustom ? ' (' + cookCustom + ')' : ''}\n\n`;
+    text += `3. Family / Kids: ${kids}\n`;
+    text += `4. Road Trips: ${trips}\n`;
+    text += `5. Kitchen Style: ${cook}\n\n`;
     if (bonus) {
       text += `Questions for you:\n${bonus}\n`;
     }
