@@ -125,4 +125,243 @@
       color: #fff;
       padding: 10px;
       font-size: 13px;
-      
+      box-sizing: border-box;
+      margin-top: 8px;
+    }
+
+    .custom-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    textarea.custom-input {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border-color);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 680px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      box-sizing: border-box;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-content pre {
+      background-color: #121212;
+      padding: 12px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .close-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 6px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Future Woman Application</h1>
+    <p>Honest questions • Zero games • Clear intentions</p>
+  </div>
+
+  <div class="section-title">01. Contact Info</div>
+  <div class="card">
+    <div class="question-title">Your Name / Handle</div>
+    <input type="text" id="contact-name" class="custom-input" placeholder="Name or Instagram / Snapchat handle...">
+  </div>
+
+  <div class="section-title">02. Lifestyle & Dealbreakers</div>
+  <div class="card">
+    <div class="question-title">Smoking & Drug Use</div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="selectSingle(this, 'smoke')">Non-Smoker / No Drugs</button>
+      <button class="option-btn" onclick="selectSingle(this, 'smoke')">Social Vape / Drink</button>
+      <button class="option-btn" onclick="selectSingle(this, 'smoke')">Smoker</button>
+    </div>
+    <input type="text" class="custom-input" id="custom-smoke" placeholder="Add your own detail on lifestyle...">
+  </div>
+
+  <div class="section-title">03. Relationship Intentions</div>
+  <div class="card">
+    <div class="question-title">What type of dynamic are you looking for?</div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="selectSingle(this, 'intent')">Real Long-Term Deal</button>
+      <button class="option-btn" onclick="selectSingle(this, 'intent')">Bedroom Benefits (Zero User Energy)</button>
+      <button class="option-btn" onclick="selectSingle(this, 'intent')">Casual / See Where It Goes</button>
+    </div>
+    <label class="checkbox-label" style="margin-top:12px;">
+      <input type="checkbox" id="user-energy-check"> Agree to mutual respect, genuine connection, and zero head games / taking advantage
+    </label>
+    <input type="text" class="custom-input" id="custom-intent" placeholder="Add your own notes on what you're looking for...">
+  </div>
+
+  <div class="section-title">04. Kids & Family Goals</div>
+  <div class="card">
+    <div class="question-title">Where do you stand on kids?</div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="selectSingle(this, 'kids')">Wants Kids</button>
+      <button class="option-btn" onclick="selectSingle(this, 'kids')">Has Kids Already</button>
+      <button class="option-btn" onclick="selectSingle(this, 'kids')">Undecided / Open</button>
+      <button class="option-btn" onclick="selectSingle(this, 'kids')">Child-Free</button>
+    </div>
+    <input type="text" class="custom-input" id="custom-kids" placeholder="Add your custom thoughts on family...">
+  </div>
+
+  <div class="section-title">05. Vibe & Dynamics</div>
+  <div class="card">
+    <div class="question-title">How do you handle truck ride-alongs & road trips?</div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="selectSingle(this, 'trips')">Car Air-Drums & Singing</button>
+      <button class="option-btn" onclick="selectSingle(this, 'trips')">DJ Duty & Navigation</button>
+      <button class="option-btn" onclick="selectSingle(this, 'trips')">Passenger Seat Naps</button>
+    </div>
+    <input type="text" class="custom-input" id="custom-trips" placeholder="Your own response...">
+  </div>
+
+  <div class="card">
+    <div class="question-title">Kitchen Duty & Cooking</div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="selectSingle(this, 'cook')">I Love Cooking For Us</button>
+      <button class="option-btn" onclick="selectSingle(this, 'cook')">Split It 50/50</button>
+      <button class="option-btn" onclick="selectSingle(this, 'cook')">You Cook, I Clean</button>
+    </div>
+    <input type="text" class="custom-input" id="custom-cook" placeholder="Your favorite dish or kitchen style...">
+  </div>
+
+  <div class="section-title">06. Ask Me Anything (Bonus Question)</div>
+  <div class="card">
+    <div class="question-title">Got questions for me? Ask up to 3 here:</div>
+    <textarea class="custom-input" id="bonus-questions" placeholder="1. What's your favorite spot to fly to?&#10;2. What are we making for dinner?"></textarea>
+  </div>
+</div>
+
+<div class="sticky-bar">
+  <div><strong style="color:var(--accent-gold)">Match Bar Active</strong></div>
+  <button class="submit-btn" onclick="generateSummary()">Complete & Copy</button>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3 style="margin-top:0; color:#fff;">Application Ready</h3>
+    <p style="font-size:13px; color:var(--text-muted)">Copy these answers and paste them into a message!</p>
+    <pre id="summary-text"></pre>
+    <button class="submit-btn" style="width:100%" onclick="copySummary()">Copy to Clipboard</button>
+    <button class="close-btn" onclick="document.getElementById('modal').style.display='none'">Close</button>
+  </div>
+</div>
+
+<script>
+  function selectSingle(btn, group) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function getSelected(group) {
+    const btns = document.querySelectorAll(`.options-grid`);
+    for (let grid of btns) {
+      const sel = grid.querySelector('.option-btn.selected');
+      if (sel && sel.getAttribute('onclick').includes(group)) return sel.innerText;
+    }
+    return 'Not specified';
+  }
+
+  function generateSummary() {
+    const name = document.getElementById('contact-name').value || 'Anonymous';
+    const smoke = getSelected('smoke');
+    const smokeCustom = document.getElementById('custom-smoke').value;
+    const intent = getSelected('intent');
+    const intentCustom = document.getElementById('custom-intent').value;
+    const noUser = document.getElementById('user-energy-check').checked ? 'Yes (Zero User Energy)' : 'No';
+    const kids = getSelected('kids');
+    const kidsCustom = document.getElementById('custom-kids').value;
+    const trips = getSelected('trips');
+    const tripsCustom = document.getElementById('custom-trips').value;
+    const cook = getSelected('cook');
+    const cookCustom = document.getElementById('custom-cook').value;
+    const bonus = document.getElementById('bonus-questions').value;
+
+    let text = `=== FUTURE WOMAN APPLICATION ===\n`;
+    text += `Applicant: ${name}\n\n`;
+    text += `1. Lifestyle: ${smoke}${smokeCustom ? ' (' + smokeCustom + ')' : ''}\n`;
+    text += `2. Intentions: ${intent}${intentCustom ? ' (' + intentCustom + ')' : ''}\n`;
+    text += `   - Mutual Respect / Zero User Energy: ${noUser}\n`;
+    text += `3. Family / Kids: ${kids}${kidsCustom ? ' (' + kidsCustom + ')' : ''}\n`;
+    text += `4. Road Trips: ${trips}${tripsCustom ? ' (' + tripsCustom + ')' : ''}\n`;
+    text += `5. Kitchen Style: ${cook}${cookCustom ? ' (' + cookCustom + ')' : ''}\n\n`;
+    if (bonus) {
+      text += `Questions for you:\n${bonus}\n`;
+    }
+
+    document.getElementById('summary-text').innerText = text;
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function copySummary() {
+    const text = document.getElementById('summary-text').innerText;
+    navigator.clipboard.writeText(text);
+    alert('Application summary copied to clipboard!');
+  }
+</script>
+
+</body>
+</html>
